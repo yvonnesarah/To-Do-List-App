@@ -17,7 +17,7 @@
     background:#fff;
     padding:30px;
     border-radius:15px;
-    width:500px;
+    width:600px;
 }
 
 .row{
@@ -106,4 +106,17 @@ circle{
     left:50%;
     transform:translate(-50%,-50%);
     font-weight:bold;
+}
+
+.dark-mode {
+    background:#121212;
+    color:#fff;
+}
+
+.dark-mode .todo-app {
+    background:#1e1e1e;
+}
+
+.dark-mode li {
+    background:#2a2a2a;
 }
