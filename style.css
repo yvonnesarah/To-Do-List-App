@@ -120,3 +120,46 @@ circle{
 .dark-mode li {
     background:#2a2a2a;
 }
+
+/* 🤖 AI Assistant */
+.ai-box {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f0f0f0;
+}
+
+.dark-mode .ai-box {
+    background: #2a2a2a;
+}
+
+#ai-chat {
+    height: 150px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.ai-input-row {
+    display: flex;
+    gap: 5px;
+}
+
+.ai-input-row input {
+    flex: 1;
+}
+
+.ai-message {
+    margin: 5px 0;
+}
+
+.user {
+    text-align: right;
+    color: #007bff;
+}
+
+.bot {
+    text-align: left;
+    color: #28a745;
+}
+
