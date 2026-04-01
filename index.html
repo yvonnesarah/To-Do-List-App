@@ -9,9 +9,11 @@
 <body>
     <div class="container">
         <div class="todo-app">
-            <h2>To-Do List App <img src="images/icon.png"></h2>
-        <div class="row">
+            <center><h2>To-Do List App <img src="images/icon.png"></h2></center>
+            <br>
+       <center> <div class="row">
             <input type="text" id="input-box" placeholder="Add tasks...">
+            <input type="date" id="due-date">
 
               <!-- NEW: category -->
         <select id="category">
@@ -27,7 +29,7 @@
         <option value="medium">Medium</option>
         <option value="high">High</option>
         </select>
-            <button onclick="addTask()">Add</button>
+            <button onclick="addTask()">Add</button> 
             </div>
             <!-- CIRCULAR PROGRESS -->
     <div class="circle-progress">
@@ -36,8 +38,10 @@
         <circle cx="60" cy="60" r="50" id="progress-circle"></circle>
       </svg>
       <div id="circle-text">0%</div>
-    </div>
+    </div> </center>
 
+    <button onclick="toggleDarkMode()">🌙</button>
+    
             <ul id="list-container">
             <!--<li class="checked">Task 1</li>
             <li>Task 2</li>
