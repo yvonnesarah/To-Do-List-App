@@ -11,15 +11,33 @@
         <div class="todo-app">
             <h2>To-Do List App <img src="images/icon.png"></h2>
         <div class="row">
-            <input type="text" id="input-box" placeholder="Add your text">
+            <input type="text" id="input-box" placeholder="Add tasks...">
+
+              <!-- NEW: category -->
+        <select id="category">
+        <option value="General">General</option>
+        <option value="Work">Work</option>
+        <option value="Study">Study</option>
+        <option value="Personal">Personal</option>
+        </select>
+
+      <!-- NEW: priority -->
+        <select id="priority">
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+        </select>
             <button onclick="addTask()">Add</button>
             </div>
-            <div class="progress-container">
-            <div class="progress-bar">
-            <div id="progress"></div>
-            </div>
-            <p id="progress-text">0% completed</p>
-            </div>  
+            <!-- CIRCULAR PROGRESS -->
+    <div class="circle-progress">
+      <svg width="120" height="120">
+        <circle cx="60" cy="60" r="50" id="bg"></circle>
+        <circle cx="60" cy="60" r="50" id="progress-circle"></circle>
+      </svg>
+      <div id="circle-text">0%</div>
+    </div>
+
             <ul id="list-container">
             <!--<li class="checked">Task 1</li>
             <li>Task 2</li>
