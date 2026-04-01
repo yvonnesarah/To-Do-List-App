@@ -163,3 +163,64 @@ circle{
     color: #28a745;
 }
 
+/* New task bounce animation */
+li.new-task {
+    animation: bounceIn 0.4s ease;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+/* Smooth fade on remove */
+li.removing {
+    animation: fadeOut 0.3s forwards;
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateX(20px); height: 0; margin: 0; padding: 0; }
+}
+
+/* Slide-in for messages */
+.ai-message {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: slideIn 0.3s forwards;
+}
+
+.ai-message.user {
+    animation-name: slideInRight;
+}
+
+.ai-message.bot {
+    animation-name: slideInLeft;
+}
+
+@keyframes slideInRight {
+    to { opacity: 1; transform: translateX(0); }
+    from { opacity: 0; transform: translateX(30px); }
+}
+
+@keyframes slideInLeft {
+    to { opacity: 1; transform: translateX(0); }
+    from { opacity: 0; transform: translateX(-30px); }
+}
+
+#plan-output {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+#plan-output.show {
+    opacity: 1;
+}
+
+#progress-circle {
+    stroke: #4caf50;
+    stroke-dasharray: 314;
+    stroke-dashoffset: 314;
+    transition: stroke-dashoffset 0.5s ease, stroke 0.5s ease;
+}
+
