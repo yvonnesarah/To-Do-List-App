@@ -11,11 +11,12 @@ function addTask(){
 
     let li = document.createElement("li");
 
-    li.innerHTML = `
-        ${inputBox.value}
-        <br><small>${category.value}</small>
-    `;
+   let dueDate = document.getElementById("due-date").value;
 
+li.innerHTML = `
+    ${inputBox.value}
+    <br><small>${category.value} | Due: ${dueDate || "None"}</small>
+`;
     li.classList.add(priority.value);
 
     let span = document.createElement("span");
@@ -68,4 +69,37 @@ function updateProgress(){
 
     circle.style.strokeDashoffset = offset;
     text.innerText = percent + "%";
+}
+
+function checkReminders() {
+    let tasks = document.querySelectorAll("li");
+
+    tasks.forEach(task => {
+        let match = task.innerText.match(/Due: (\d{4}-\d{2}-\d{2})/);
+
+        if (match) {
+            let due = new Date(match[1]);
+            let today = new Date();
+
+            if (due.toDateString() === today.toDateString() &&
+                !task.classList.contains("checked")) {
+                alert("Task due today: " + task.innerText);
+            }
+        }
+    });
+}
+
+setInterval(checkReminders, 60000);
+
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+
+    localStorage.setItem(
+        "darkMode",
+        document.body.classList.contains("dark-mode")
+    );
+}
+
+if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
 }
