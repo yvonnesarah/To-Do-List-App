@@ -36,13 +36,19 @@ listContainer.addEventListener("click", function(e){
         e.target.classList.toggle("checked");
     }
     else if(e.target.tagName === "SPAN"){
-        e.target.parentElement.remove();
+        const li = e.target.parentElement;
+        li.classList.add("removing");
+        li.addEventListener("animationend", () => {
+            li.remove();
+            saveData();
+            updateProgress();
+        });
+        return; // skip saveData/updateProgress until animation ends
     }
 
     saveData();
     updateProgress();
 });
-
 function saveData(){
     localStorage.setItem("data", listContainer.innerHTML);
 }
@@ -66,8 +72,13 @@ function updateProgress(){
     let text = document.getElementById("circle-text");
 
     let offset = 314 - (314 * percent) / 100;
-
     circle.style.strokeDashoffset = offset;
+
+    // color changes with progress
+    if(percent < 50) circle.style.stroke = "#ff5945";
+    else if(percent < 100) circle.style.stroke = "#ffa500";
+    else circle.style.stroke = "#4caf50";
+
     text.innerText = percent + "%";
 }
 
@@ -112,12 +123,18 @@ function askAI() {
 
     let userMsg = input.value;
 
-    chat.innerHTML += `<div class="ai-message user">${userMsg}</div>`;
+    const userDiv = document.createElement("div");
+    userDiv.classList.add("ai-message", "user");
+    userDiv.innerText = userMsg;
+    chat.appendChild(userDiv);
 
     let response = getAIResponse(userMsg);
 
     setTimeout(() => {
-        chat.innerHTML += `<div class="ai-message bot">${response}</div>`;
+        const botDiv = document.createElement("div");
+        botDiv.classList.add("ai-message", "bot");
+        botDiv.innerText = response;
+        chat.appendChild(botDiv);
         chat.scrollTop = chat.scrollHeight;
     }, 500);
 
@@ -147,6 +164,7 @@ function dailyPlan() {
 
     if(tasks.length === 0){
         output.innerText = "No tasks yet. Add some!";
+        output.classList.add("show");
         return;
     }
 
@@ -164,4 +182,8 @@ function dailyPlan() {
         "🔥 Start with HIGH priority:\n" + high.join("\n") +
         "\n\n⚡ Then MEDIUM:\n" + medium.join("\n") +
         "\n\n🌿 Finish with LOW:\n" + low.join("\n");
+
+    output.classList.remove("show"); // reset animation
+    void output.offsetWidth; // trigger reflow
+    output.classList.add("show");
 }
