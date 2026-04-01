@@ -103,3 +103,65 @@ function toggleDarkMode() {
 if (localStorage.getItem("darkMode") === "true") {
     document.body.classList.add("dark-mode");
 }
+
+function askAI() {
+    let input = document.getElementById("ai-input");
+    let chat = document.getElementById("ai-chat");
+
+    if (input.value.trim() === "") return;
+
+    let userMsg = input.value;
+
+    chat.innerHTML += `<div class="ai-message user">${userMsg}</div>`;
+
+    let response = getAIResponse(userMsg);
+
+    setTimeout(() => {
+        chat.innerHTML += `<div class="ai-message bot">${response}</div>`;
+        chat.scrollTop = chat.scrollHeight;
+    }, 500);
+
+    input.value = "";
+}
+
+/* 🤖 Simple AI Brain */
+function getAIResponse(message) {
+    message = message.toLowerCase();
+
+    if (message.includes("hello")) return "Hi! 👋 How can I help?";
+    if (message.includes("tasks")) return "You have " + document.querySelectorAll("li").length + " tasks.";
+    if (message.includes("completed")) return "You've completed " + document.querySelectorAll(".checked").length + " tasks 🎉";
+    if (message.includes("clear")) {
+        listContainer.innerHTML = "";
+        saveData();
+        updateProgress();
+        return "All tasks cleared 🧹";
+    }
+
+    return "I'm your assistant 🤖 Try asking about tasks, progress, or motivation!";
+}
+
+function dailyPlan() {
+    let tasks = document.querySelectorAll("li");
+    let output = document.getElementById("plan-output");
+
+    if(tasks.length === 0){
+        output.innerText = "No tasks yet. Add some!";
+        return;
+    }
+
+    let high = [];
+    let medium = [];
+    let low = [];
+
+    tasks.forEach(task => {
+        if(task.classList.contains("high")) high.push(task.innerText);
+        else if(task.classList.contains("medium")) medium.push(task.innerText);
+        else low.push(task.innerText);
+    });
+
+    output.innerText =
+        "🔥 Start with HIGH priority:\n" + high.join("\n") +
+        "\n\n⚡ Then MEDIUM:\n" + medium.join("\n") +
+        "\n\n🌿 Finish with LOW:\n" + low.join("\n");
+}
