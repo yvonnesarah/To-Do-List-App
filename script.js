@@ -187,3 +187,78 @@ function dailyPlan() {
     void output.offsetWidth; // trigger reflow
     output.classList.add("show");
 }
+
+// Filter tasks by category
+function filterTasks(categoryName) {
+    const tasks = document.querySelectorAll("li");
+
+    tasks.forEach(task => {
+        const taskCategory = task.querySelector("small").innerText.split(" | ")[0];
+
+        if(categoryName === "all" || taskCategory === categoryName){
+            task.classList.remove("hide-task");
+            task.classList.add("show-task");
+        } else {
+            task.classList.remove("show-task");
+            task.classList.add("hide-task");
+        }
+
+        // Remove task from DOM after fadeOut
+        task.addEventListener("animationend", () => {
+            if(task.classList.contains("hide-task")) task.style.display = "none";
+            else task.style.display = "block";
+        });
+    });
+}
+
+// Sort tasks
+// Keep track of active filters and sort
+let activeCategory = "all";
+let activeSort = null;
+
+// Filter tasks by category
+function filterTasks(categoryName) {
+    activeCategory = categoryName;
+    renderTasks();
+}
+
+// Sort tasks by type
+function sortTasks(type) {
+    activeSort = type;
+    renderTasks();
+}
+
+// Render tasks with current filter & sort applied
+function renderTasks() {
+    const tasks = Array.from(document.querySelectorAll("li"));
+
+    // Filter by category
+    let filtered = tasks.filter(task => {
+        const taskCategory = task.querySelector("small").innerText.split(" | ")[0];
+        return activeCategory === "all" || taskCategory === activeCategory;
+    });
+
+    // Sort filtered tasks
+    if (activeSort === "priority") {
+        const priorityOrder = {high: 0, medium: 1, low: 2};
+        filtered.sort((a, b) => priorityOrder[a.classList[0]] - priorityOrder[b.classList[0]]);
+    } else if (activeSort === "due") {
+        filtered.sort((a, b) => {
+            const dateA = a.querySelector("small").innerText.match(/Due: (\d{4}-\d{2}-\d{2})/);
+            const dateB = b.querySelector("small").innerText.match(/Due: (\d{4}-\d{2}-\d{2})/);
+            return (dateA ? new Date(dateA[1]) : new Date(0)) - (dateB ? new Date(dateB[1]) : new Date(0));
+        });
+    }
+
+    // Animate tasks out before reordering
+    tasks.forEach(task => {
+        task.style.display = "none";
+    });
+
+    // Append filtered/sorted tasks
+    filtered.forEach(task => {
+        task.style.display = "block";
+        task.style.animation = "fadeInSlide 0.3s forwards"; // reuse your animation
+        listContainer.appendChild(task);
+    });
+}
