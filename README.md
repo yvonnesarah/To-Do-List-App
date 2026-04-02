@@ -4,8 +4,10 @@
 The To-Do List App is a dynamic and interactive task management web application built with HTML, CSS, and JavaScript. It allows users to create, organize, and track tasks efficiently with features like categories, priorities, due dates, filtering, sorting, and a built-in AI assistant — all within a responsive and user-friendly interface.
 
 ## 🛠 Prerequisites
-No prerequisites required. Runs directly in a web browser.
 
+To run this project, you only need:
+* 🌐 A modern web browser (e.g., Chrome, Edge, Firefox, Safari)
+* 
 ## 📋 Features
 * Add tasks with: Due dates, Categories (General, Work, Study, Personal), Priority levels (Low, Medium, High)
 * Mark tasks as completed and delete tasks with smooth animations
@@ -68,7 +70,7 @@ Below is a preview of the To-Do List App:
 * User authentication
 
 ## 👥 Credit
-N/A
+This project was designed and developed by Yvonne Adedeji.
 
 ## 📜 License
 This project is open-source. For licensing details, please refer to the LICENSE file in the repository.
