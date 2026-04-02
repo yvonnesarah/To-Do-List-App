@@ -41,7 +41,18 @@
     </div> </center>
 
     <button onclick="toggleDarkMode()">🌙</button>
-    
+    <br>
+    <br>
+    <div class="filter-row">
+    <button onclick="filterTasks('all')">All</button>
+    <button onclick="filterTasks('General')">General</button>
+    <button onclick="filterTasks('Work')">Work</button>
+    <button onclick="filterTasks('Study')">Study</button>
+    <button onclick="filterTasks('Personal')">Personal</button>
+
+    <button onclick="sortTasks('priority')">Sort by Priority</button>
+    <button onclick="sortTasks('due')">Sort by Due Date</button>
+</div>
             <ul id="list-container">
             <!--<li class="checked">Task 1</li>
             <li>Task 2</li>
