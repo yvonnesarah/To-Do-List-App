@@ -6,7 +6,7 @@ The To-Do List App is a dynamic and interactive task management web application 
 ## 🛠 Prerequisites
 
 To run this project, you only need:
-* 🌐 A modern web browser (e.g., Chrome, Edge, Firefox, Safari)
+* 🌐 A modern web browser (Chrome, Edge, Firefox, Safari)
   
 ## 📋 Features
 * Add tasks with: Due dates, Categories (General, Work, Study, Personal), Priority levels (Low, Medium, High)
