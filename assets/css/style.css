@@ -1,0 +1,176 @@
+
+/* =========================
+   GLOBAL STYLES
+========================= */
+
+:root {
+    --primary: #2563eb;
+    --bg-light: #f4f6f8;
+    --bg-dark: #111827;
+    --card-light: #ffffff;
+    --card-dark: #1f2937;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: system-ui, sans-serif;
+}
+
+body {
+    background: var(--bg-light);
+    color: #333;
+    transition: 0.3s;
+}
+
+/* Layout */
+.app-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.todo-app {
+    width: 100%;
+    max-width: 650px;
+    background: var(--card-light);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* Header */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-icon {
+    width: 80px;
+}
+
+/* Inputs */
+.task-input {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.task-input input,
+.task-input select {
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Buttons */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 6px;
+}
+
+.btn-primary {
+    grid-column: span 2;
+    background: var(--primary);
+    color: white;
+    padding: 0.7rem;
+}
+
+.btn-secondary {
+    background: #e5e7eb;
+    padding: 0.6rem;
+}
+
+/* Tasks */
+.task-list li {
+    background: #f1f5f9;
+    padding: 0.7rem;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.task-list li.completed {
+    text-decoration: line-through;
+    background: #d1fae5;
+}
+
+/* Progress */
+.progress-section {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+.progress-bg {
+    stroke: #e5e7eb;
+    fill: none;
+    stroke-width: 10;
+}
+
+#progress-bar {
+    stroke: var(--primary);
+    fill: none;
+    stroke-width: 10;
+    stroke-dasharray: 314;
+    stroke-dashoffset: 314;
+}
+
+/* Dark Mode */
+.dark {
+    background: var(--bg-dark);
+    color: #f9fafb;
+}
+
+.dark .todo-app {
+    background: var(--card-dark);
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.filters button {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    border-radius: 20px;
+    background: #e5e7eb;
+}
+
+.filters button:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* =========================
+   DARK MODE - TASK LIST
+========================= */
+
+.dark .task-list li {
+    background: #374151;       /* darker card */
+    color: #f9fafb;            /* light text */
+    border: 1px solid #4b5563; /* subtle separation */
+}
+
+.dark .task-list li.completed {
+    background: #065f46;       /* dark green */
+    color: #d1fae5;            /* soft green text */
+}
+
+/* Delete button inside task */
+.dark .task-list li button {
+    background: transparent;
+    color: #f9fafb;
+}
+
+.dark .task-list li button:hover {
+    color: #ef4444; /* red hover for delete */
+}
