@@ -296,12 +296,44 @@ button {
     opacity: 1;
 }
 
-/* EMPTY STATE */
+/* =========================
+   EMPTY STATE 
+========================= */
+
 .empty-state {
     text-align: center;
-    opacity: 0.6;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 500;
+
+    background: #f1f5f9;
+    color: #475569;
+    border: 1px dashed #cbd5f5;
+
+    transition: all 0.3s ease;
 }
 
+/* Hover subtle effect (desktop polish) */
+.empty-state:hover {
+    transform: scale(1.01);
+}
+
+/* =========================
+   DARK MODE EMPTY STATE
+========================= */
+
+.dark .empty-state {
+    background: #1f2937;
+    color: #9ca3af;
+    border: 1px dashed #374151;
+}
+
+/* Slight hover adjustment for dark */
+.dark .empty-state:hover {
+    background: #243042;
+}
 /* =========================
    FILTER BUTTON BASE STYLE
 ========================= */
@@ -434,3 +466,28 @@ button[data-sort="date"]:hover {
 .dark .sort-group button:active {
     transform: scale(0.96);
 }
+
+/* STATS */
+.stats {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+}
+
+/* SUBTASKS */
+.subtasks {
+    margin-top: 5px;
+    padding-left: 15px;
+    font-size: 0.85rem;
+}
+
+.subtasks li {
+    list-style: none;
+}
+
+/* TOAST TYPES */
+#toast.success { background: #16a34a; }
+#toast.error { background: #dc2626; }
+#toast.info { background: #2563eb; }
+#toast.warning { background: #f59e0b; }
