@@ -131,6 +131,11 @@ elements.search.addEventListener("input", (e) => {
     toast(`Searching: "${query}"`, "info");
 });
 
+function formatDate(dateString) {
+    const options = { year: "numeric", month: "short", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+}
+
 /* =========================
    RENDER
 ========================= */
@@ -156,19 +161,24 @@ function renderTasks(data = tasks) {
             ${overdue ? "overdue" : ""}
         `;
 
-        li.innerHTML = `
-            <label>
-                <input type="checkbox"
-                    ${task.completed ? "checked" : ""}
-                    onchange="toggleTask(${task.id})">
-                ${task.text} (${task.category})
-            </label>
+       li.innerHTML = `
+     <label>
+        <input type="checkbox"
+            ${task.completed ? "checked" : ""}
+            onchange="toggleTask(${task.id})">
 
-            <div>
-                <button onclick="editTask(${task.id})">✏️</button>
-                <button onclick="deleteTask(${task.id})">❌</button>
-            </div>
-        `;
+        <strong>${task.text}</strong><br>
+        <small>
+            📂 ${task.category} 
+            ${task.date ? ` | 📅 ${formatDate(task.date)}` : ""}
+        </small>
+    </label>
+
+    <div>
+        <button onclick="editTask(${task.id})">✏️</button>
+        <button onclick="deleteTask(${task.id})">❌</button>
+    </div>
+`;
 
         elements.list.appendChild(li);
     });
