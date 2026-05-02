@@ -13,12 +13,12 @@ const elements = {
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 /* =========================
-   TOAST SYSTEM 
+   TOAST 
 ========================= */
 function toast(message, type = "info") {
     const t = document.getElementById("toast");
 
-    t.className = ""; // reset classes
+    t.className = "";
     t.classList.add("show", type);
     t.textContent = message;
 
@@ -42,7 +42,7 @@ function addTask() {
     const value = elements.input.value.trim();
 
     if (!value) {
-        toast("Please enter a task first", "error");
+        toast("Please enter a task", "error");
         return;
     }
 
@@ -52,11 +52,12 @@ function addTask() {
         date: elements.date.value,
         category: elements.category.value,
         priority: elements.priority.value,
-        completed: false
+        completed: false,
+        subtasks: [],
+        reminded: false
     });
 
     elements.input.value = "";
-    save();
     renderTasks();
 
     toast("Task added successfully", "success");
@@ -69,7 +70,7 @@ elements.input.addEventListener("keydown", (e) => {
 });
 
 /* =========================
-   TOGGLE COMPLETE
+   TOGGLE TASK
 ========================= */
 function toggleTask(id) {
     tasks = tasks.map(t =>
@@ -84,10 +85,7 @@ function toggleTask(id) {
    DELETE TASK
 ========================= */
 function deleteTask(id) {
-    const task = tasks.find(t => t.id === id);
-    if (!task) return;
-
-    if (!confirm("Are you sure you want to delete this task?")) return;
+    if (!confirm("Delete task?")) return;
 
     tasks = tasks.filter(t => t.id !== id);
     renderTasks();
@@ -100,8 +98,6 @@ function deleteTask(id) {
 ========================= */
 function editTask(id) {
     const task = tasks.find(t => t.id === id);
-    if (!task) return;
-
     const newText = prompt("Edit task:", task.text);
 
     if (!newText || !newText.trim()) {
@@ -116,24 +112,52 @@ function editTask(id) {
 }
 
 /* =========================
+   SUBTASKS
+========================= */
+function addSubtask(taskId) {
+    const text = prompt("Subtask:");
+
+    if (!text) {
+        toast("Subtask cancelled", "error");
+        return;
+    }
+
+    const task = tasks.find(t => t.id === taskId);
+    task.subtasks.push({ text, done: false });
+
+    renderTasks();
+    toast("Subtask added", "success");
+}
+
+function toggleSubtask(taskId, index) {
+    const task = tasks.find(t => t.id === taskId);
+    task.subtasks[index].done = !task.subtasks[index].done;
+
+    renderTasks();
+    toast("Subtask updated", "info");
+}
+
+/* =========================
    SEARCH
 ========================= */
 elements.search.addEventListener("input", (e) => {
-    const query = e.target.value.toLowerCase();
+    const q = e.target.value.toLowerCase();
 
     const filtered = tasks.filter(t =>
-        t.text.toLowerCase().includes(query) ||
-        t.category.toLowerCase().includes(query)
+        t.text.toLowerCase().includes(q) ||
+        t.category.toLowerCase().includes(q)
     );
 
     renderTasks(filtered);
 
-    toast(`Searching: "${query}"`, "info");
+    if (q) toast(`Searching: "${q}"`, "info");
 });
 
+/* =========================
+   FORMAT DATE
+========================= */
 function formatDate(dateString) {
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
+    return new Date(dateString).toLocaleDateString();
 }
 
 /* =========================
@@ -143,7 +167,8 @@ function renderTasks(data = tasks) {
     elements.list.innerHTML = "";
 
     if (data.length === 0) {
-        elements.list.innerHTML = `<div class="empty-state">No tasks found</div>`;
+        elements.list.innerHTML = `<div class="empty-state">No tasks yet — add one above ✨</div>`;
+        updateStats();
         return;
     }
 
@@ -161,29 +186,42 @@ function renderTasks(data = tasks) {
             ${overdue ? "overdue" : ""}
         `;
 
-       li.innerHTML = `
-     <label>
-        <input type="checkbox"
-            ${task.completed ? "checked" : ""}
-            onchange="toggleTask(${task.id})">
+        li.innerHTML = `
+        <label>
+            <input type="checkbox"
+                ${task.completed ? "checked" : ""}
+                onchange="toggleTask(${task.id})">
 
-        <strong>${task.text}</strong><br>
-        <small>
-            📂 ${task.category} 
-            ${task.date ? ` | 📅 ${formatDate(task.date)}` : ""}
-        </small>
-    </label>
+            <strong>${task.text}</strong><br>
+            <small>
+                📂 ${task.category}
+                ${task.date ? ` | 📅 ${formatDate(task.date)}` : ""}
+            </small>
+        </label>
 
-    <div>
-        <button onclick="editTask(${task.id})">✏️</button>
-        <button onclick="deleteTask(${task.id})">❌</button>
-    </div>
-`;
+        <ul class="subtasks">
+            ${(task.subtasks || []).map((s, i) => `
+                <li>
+                    <input type="checkbox"
+                        ${s.done ? "checked" : ""}
+                        onchange="toggleSubtask(${task.id}, ${i})">
+                    ${s.text}
+                </li>
+            `).join("")}
+        </ul>
+
+        <div>
+            <button onclick="addSubtask(${task.id})">➕</button>
+            <button onclick="editTask(${task.id})">✏️</button>
+            <button onclick="deleteTask(${task.id})">❌</button>
+        </div>
+        `;
 
         elements.list.appendChild(li);
     });
 
     updateProgress();
+    updateStats();
     save();
 }
 
@@ -200,6 +238,42 @@ function updateProgress() {
     const offset = 314 - (314 * percent) / 100;
     elements.progressBar.style.strokeDashoffset = offset;
 }
+
+/* =========================
+   STATS
+========================= */
+function updateStats() {
+    const total = tasks.length;
+    const completed = tasks.filter(t => t.completed).length;
+
+    document.getElementById("total-tasks").textContent = total;
+    document.getElementById("completed-tasks").textContent = completed;
+    document.getElementById("pending-tasks").textContent =
+        total - completed;
+}
+
+/* =========================
+   REMINDERS
+========================= */
+function checkReminders() {
+    const now = new Date();
+
+    tasks.forEach(task => {
+        if (
+            task.date &&
+            !task.completed &&
+            !task.reminded &&
+            new Date(task.date) <= now
+        ) {
+            toast(`⏰ Task due: ${task.text}`, "warning");
+            task.reminded = true;
+        }
+    });
+
+    save();
+}
+
+setInterval(checkReminders, 60000);
 
 /* =========================
    FILTERS
@@ -248,16 +322,20 @@ document.getElementById("clear-completed")
 
     if (tasks.length === before) {
         toast("No completed tasks to clear", "error");
-        return;
+    } else {
+        toast("Completed tasks cleared", "success");
     }
 
     renderTasks();
-    toast("Completed tasks cleared", "success");
 });
 
 /* =========================
-   DARK MODE
+   DARK MODE (PERSIST)
 ========================= */
+if (localStorage.getItem("darkMode") === "true") {
+    elements.body.classList.add("dark");
+}
+
 document.getElementById("dark-mode-toggle")
 .addEventListener("click", () => {
     elements.body.classList.toggle("dark");
@@ -265,6 +343,11 @@ document.getElementById("dark-mode-toggle")
     const mode = elements.body.classList.contains("dark")
         ? "Dark mode enabled"
         : "Light mode enabled";
+
+    localStorage.setItem(
+        "darkMode",
+        elements.body.classList.contains("dark")
+    );
 
     toast(mode, "info");
 });
