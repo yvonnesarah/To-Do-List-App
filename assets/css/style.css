@@ -491,3 +491,7 @@ button[data-sort="date"]:hover {
 #toast.error { background: #dc2626; }
 #toast.info { background: #2563eb; }
 #toast.warning { background: #f59e0b; }
+
+.task-list li.pinned {
+    border: 2px solid gold;
+}
