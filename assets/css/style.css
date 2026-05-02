@@ -174,3 +174,97 @@ button {
 .dark .task-list li button:hover {
     color: #ef4444; /* red hover for delete */
 }
+
+/* =========================
+   TOAST
+========================= */
+#toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #111;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    opacity: 0;
+    transition: 0.3s;
+    z-index: 9999;
+}
+
+#toast.show {
+    opacity: 1;
+}
+
+/* =========================
+   TASK ACTIONS 
+========================= */
+.task-list li div button {
+    margin-left: 5px;
+    padding: 4px 6px;
+    border-radius: 4px;
+}
+
+/* =========================
+   FILTER BUTTON BASE STYLE
+========================= */
+
+button[data-filter="all"] {
+    background: #e5e7eb;
+    color: #111;
+}
+
+button[data-filter="all"]:hover {
+    background: #cbd5e1;
+}
+
+button[data-filter="General"] {
+    background: #3b82f6;
+    color: white;
+}
+
+button[data-filter="General"]:hover {
+    background: #2563eb;
+}
+
+button[data-filter="Work"] {
+    background: #8b5cf6;
+    color: white;
+}
+
+button[data-filter="Work"]:hover {
+    background: #7c3aed;
+}
+
+button[data-filter="Study"] {
+    background: #f59e0b;
+    color: white;
+}
+
+button[data-filter="Study"]:hover {
+    background: #d97706;
+}
+
+button[data-filter="Personal"] {
+    background: #10b981;
+    color: white;
+}
+
+button[data-filter="Personal"]:hover {
+    background: #059669;
+}
+
+button[data-sort="priority"],
+button[data-sort="date"] {
+    background: #111827;
+    color: white;
+}
+
+button[data-sort="priority"]:hover,
+button[data-sort="date"]:hover {
+    background: #374151;
+}
+
+.filter-group button:active,
+.sort-group button:active {
+    transform: scale(0.96);
+}
