@@ -1,80 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do List App</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="icon" href="assets/images/icon.png" type="image/png" />
 </head>
+
 <body>
-    <div class="container">
-        <div class="todo-app">
-            <center><h2>To-Do List App <img src="images/icon.png"></h2></center>
-            <br>
-       <center> <div class="row">
-            <input type="text" id="input-box" placeholder="Add tasks...">
-            <input type="date" id="due-date">
+<main class="app-container">
+    <section class="todo-app" aria-labelledby="app-title">
 
-              <!-- NEW: category -->
-        <select id="category">
-        <option value="General">General</option>
-        <option value="Work">Work</option>
-        <option value="Study">Study</option>
-        <option value="Personal">Personal</option>
-        </select>
+        <!-- Header -->
+        <header class="app-header">
+            <h1 id="app-title">To-Do List App</h1>
+            <img src="assets/images/icon.png" alt="Application logo" class="app-icon" />
+        </header>
 
-      <!-- NEW: priority -->
-        <select id="priority">
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-        </select>
-            <button onclick="addTask()">Add</button> 
+        <!-- Task Input -->
+        <section class="task-input" aria-label="Add new task">
+            <input id="task-input" type="text" placeholder="Enter task..." required />
+
+            <input id="task-date" type="date" />
+
+            <select id="task-category">
+                <option value="General">General</option>
+                <option value="Work">Work</option>
+                <option value="Study">Study</option>
+                <option value="Personal">Personal</option>
+            </select>
+
+            <select id="task-priority">
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+
+            <button id="add-task-btn" class="btn-primary">Add Task</button>
+        </section>
+
+        <!-- Progress -->
+        <section class="progress-section">
+            <div class="progress-circle">
+                <svg width="120" height="120">
+                    <circle cx="60" cy="60" r="50" class="progress-bg"></circle>
+                    <circle cx="60" cy="60" r="50" id="progress-bar"></circle>
+                </svg>
+                <span id="progress-text">0%</span>
             </div>
-            <!-- CIRCULAR PROGRESS -->
-    <div class="circle-progress">
-      <svg width="120" height="120">
-        <circle cx="60" cy="60" r="50" id="bg"></circle>
-        <circle cx="60" cy="60" r="50" id="progress-circle"></circle>
-      </svg>
-      <div id="circle-text">0%</div>
-    </div> </center>
+        </section>
 
-    <button onclick="toggleDarkMode()">🌙</button>
-    <br>
-    <br>
-    <div class="filter-row">
-    <button onclick="filterTasks('all')">All</button>
-    <button onclick="filterTasks('General')">General</button>
-    <button onclick="filterTasks('Work')">Work</button>
-    <button onclick="filterTasks('Study')">Study</button>
-    <button onclick="filterTasks('Personal')">Personal</button>
+        <!-- Controls -->
+        <section class="controls">
+            <button id="dark-mode-toggle" class="btn-secondary">Toggle Dark Mode</button>
+        </section>
 
-    <button onclick="sortTasks('priority')">Sort by Priority</button>
-    <button onclick="sortTasks('due')">Sort by Due Date</button>
-</div>
-            <ul id="list-container">
-            <!--<li class="checked">Task 1</li>
-            <li>Task 2</li>
-            <li>Task 3</li> -->
-            </ul>
         <br>
-            <!-- 🤖 AI Assistant -->
-        <div class="ai-box">
-    <h3>🤖 AI Assistant</h3>
-    <div id="ai-chat"></div>
+        
+        <!-- Filters -->
+        <section class="filters">
+            <div class="filter-group">
+                <button data-filter="all">All</button>
+                <button data-filter="General">General</button>
+                <button data-filter="Work">Work</button>
+                <button data-filter="Study">Study</button>
+                <button data-filter="Personal">Personal</button>
+            </div>
 
-    <div class="ai-input-row">
-        <input type="text" id="ai-input" placeholder="Ask something...">
-        <button onclick="askAI()">Send</button>
-    </div>
-    </div>
-    <br>
-    <button onclick="dailyPlan()">🎯 Plan My Day</button>
-     <p id="plan-output"></p>
-    </div>
-    </div>
-    
+            <div class="sort-group">
+                <button data-sort="priority">Sort by Priority</button>
+                <button data-sort="date">Sort by Due Date</button>
+            </div>
+        </section>
+
+        <!-- Task List -->
+        <section class="task-list">
+            <ul id="task-list"></ul>
+        </section>
+
+    </section>
+</main>
+
+<script src="assets/js/script.js"></script>
 </body>
-<script src="script.js"></script>
 </html>
