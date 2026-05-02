@@ -13,7 +13,7 @@ const elements = {
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 /* =========================
-   TOAST 
+   TOAST
 ========================= */
 function toast(message, type = "info") {
     const t = document.getElementById("toast");
@@ -36,7 +36,7 @@ function save() {
 }
 
 /* =========================
-   ADD TASK
+   ADD TASK (NO SMART DEFAULTS)
 ========================= */
 function addTask() {
     const value = elements.input.value.trim();
@@ -54,7 +54,7 @@ function addTask() {
         priority: elements.priority.value,
         completed: false,
         subtasks: [],
-        reminded: false
+        pinned: false
     });
 
     elements.input.value = "";
@@ -112,6 +112,20 @@ function editTask(id) {
 }
 
 /* =========================
+   PIN TASK
+========================= */
+function togglePin(id) {
+    tasks = tasks.map(t =>
+        t.id === id ? { ...t, pinned: !t.pinned } : t
+    );
+
+    tasks.sort((a, b) => b.pinned - a.pinned);
+    renderTasks();
+
+    toast("Pin updated", "info");
+}
+
+/* =========================
    SUBTASKS
 ========================= */
 function addSubtask(taskId) {
@@ -149,9 +163,38 @@ elements.search.addEventListener("input", (e) => {
     );
 
     renderTasks(filtered);
-
-    if (q) toast(`Searching: "${q}"`, "info");
 });
+
+/* =========================
+   DRAG & DROP
+========================= */
+let draggedId = null;
+
+function enableDrag() {
+    document.querySelectorAll("#task-list li").forEach(li => {
+
+        li.draggable = true;
+
+        li.addEventListener("dragstart", () => {
+            draggedId = Number(li.dataset.id);
+        });
+
+        li.addEventListener("dragover", e => e.preventDefault());
+
+        li.addEventListener("drop", () => {
+            const targetId = Number(li.dataset.id);
+
+            const from = tasks.findIndex(t => t.id === draggedId);
+            const to = tasks.findIndex(t => t.id === targetId);
+
+            const moved = tasks.splice(from, 1)[0];
+            tasks.splice(to, 0, moved);
+
+            renderTasks();
+            toast("Tasks reordered", "info");
+        });
+    });
+}
 
 /* =========================
    FORMAT DATE
@@ -167,7 +210,8 @@ function renderTasks(data = tasks) {
     elements.list.innerHTML = "";
 
     if (data.length === 0) {
-        elements.list.innerHTML = `<div class="empty-state">No tasks yet — add one above ✨</div>`;
+        elements.list.innerHTML =
+            `<div class="empty-state">No tasks yet — add one above ✨</div>`;
         updateStats();
         return;
     }
@@ -175,15 +219,12 @@ function renderTasks(data = tasks) {
     data.forEach(task => {
         const li = document.createElement("li");
 
-        const overdue =
-            task.date &&
-            new Date(task.date) < new Date() &&
-            !task.completed;
+        li.dataset.id = task.id;
 
         li.className = `
             ${task.completed ? "completed" : ""}
             ${task.priority}
-            ${overdue ? "overdue" : ""}
+            ${task.pinned ? "pinned" : ""}
         `;
 
         li.innerHTML = `
@@ -193,7 +234,7 @@ function renderTasks(data = tasks) {
                 onchange="toggleTask(${task.id})">
 
             <strong>${task.text}</strong><br>
-            <small>
+          <small>
                 📂 ${task.category}
                 ${task.date ? ` | 📅 ${formatDate(task.date)}` : ""}
             </small>
@@ -211,6 +252,7 @@ function renderTasks(data = tasks) {
         </ul>
 
         <div>
+            <button onclick="togglePin(${task.id})">📌</button>
             <button onclick="addSubtask(${task.id})">➕</button>
             <button onclick="editTask(${task.id})">✏️</button>
             <button onclick="deleteTask(${task.id})">❌</button>
@@ -220,6 +262,7 @@ function renderTasks(data = tasks) {
         elements.list.appendChild(li);
     });
 
+    enableDrag();
     updateProgress();
     updateStats();
     save();
@@ -253,29 +296,6 @@ function updateStats() {
 }
 
 /* =========================
-   REMINDERS
-========================= */
-function checkReminders() {
-    const now = new Date();
-
-    tasks.forEach(task => {
-        if (
-            task.date &&
-            !task.completed &&
-            !task.reminded &&
-            new Date(task.date) <= now
-        ) {
-            toast(`⏰ Task due: ${task.text}`, "warning");
-            task.reminded = true;
-        }
-    });
-
-    save();
-}
-
-setInterval(checkReminders, 60000);
-
-/* =========================
    FILTERS
 ========================= */
 document.querySelectorAll("[data-filter]").forEach(btn => {
@@ -288,8 +308,7 @@ document.querySelectorAll("[data-filter]").forEach(btn => {
                 : tasks.filter(t => t.category === type);
 
         renderTasks(result);
-
-        toast(`Filter applied: ${type}`, "info");
+        toast(`Filter: ${type}`, "info");
     });
 });
 
@@ -298,13 +317,14 @@ document.querySelectorAll("[data-filter]").forEach(btn => {
 ========================= */
 document.querySelectorAll("[data-sort]").forEach(btn => {
     btn.addEventListener("click", () => {
+
         if (btn.dataset.sort === "priority") {
             const order = { high: 1, medium: 2, low: 3 };
             tasks.sort((a, b) => order[a.priority] - order[b.priority]);
             toast("Sorted by priority", "info");
         } else {
             tasks.sort((a, b) => new Date(a.date) - new Date(b.date));
-            toast("Sorted by due date", "info");
+            toast("Sorted by date", "info");
         }
 
         renderTasks();
@@ -316,21 +336,22 @@ document.querySelectorAll("[data-sort]").forEach(btn => {
 ========================= */
 document.getElementById("clear-completed")
 .addEventListener("click", () => {
-    const before = tasks.length;
 
+    const before = tasks.length;
     tasks = tasks.filter(t => !t.completed);
 
-    if (tasks.length === before) {
-        toast("No completed tasks to clear", "error");
-    } else {
-        toast("Completed tasks cleared", "success");
-    }
-
     renderTasks();
+
+    toast(
+        tasks.length === before
+            ? "No completed tasks"
+            : "Completed cleared",
+        "success"
+    );
 });
 
 /* =========================
-   DARK MODE (PERSIST)
+   DARK MODE
 ========================= */
 if (localStorage.getItem("darkMode") === "true") {
     elements.body.classList.add("dark");
@@ -340,16 +361,33 @@ document.getElementById("dark-mode-toggle")
 .addEventListener("click", () => {
     elements.body.classList.toggle("dark");
 
-    const mode = elements.body.classList.contains("dark")
-        ? "Dark mode enabled"
-        : "Light mode enabled";
-
     localStorage.setItem(
         "darkMode",
         elements.body.classList.contains("dark")
     );
 
-    toast(mode, "info");
+    toast(
+        elements.body.classList.contains("dark")
+            ? "Dark mode enabled"
+            : "Light mode enabled",
+        "info"
+    );
+});
+
+/* =========================
+   WEEKLY SUMMARY
+========================= */
+document.getElementById("weekly-summary")
+.addEventListener("click", () => {
+    const done = tasks.filter(t => t.completed).length;
+    const total = tasks.length;
+
+    alert(
+        `📊 Weekly Summary\n\n` +
+        `Total: ${total}\n` +
+        `Completed: ${done}\n` +
+        `Progress: ${Math.round((done / total) * 100) || 0}%`
+    );
 });
 
 /* =========================
