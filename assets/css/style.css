@@ -313,6 +313,13 @@ button {
     color: white;
 }
 
+/* Subtask Empty heading in dark mode  */
+
+.dark .empty-subtasks {
+    color: white;
+    font-style: italic;
+}
+
 /* =========================
    TOAST NOTIFICATION
 ========================= */
@@ -481,6 +488,14 @@ button[data-sort="date"]:hover {
     margin-bottom: 4px;
     color: black;
     transition: color 0.3s ease;
+}
+
+/* Subtask empty heading */
+.empty-subtasks {
+    font-size: 0.8rem;
+    color: black;
+    margin: 4px 0 10px;
+    font-style: italic;
 }
 
 /* Pinned task highlight */
