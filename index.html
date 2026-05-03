@@ -1,30 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Character encoding for proper text rendering -->
     <meta charset="UTF-8" />
+
+    <!-- Makes layout responsive on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Page title shown in browser tab -->
     <title>To-Do List App</title>
 
+    <!-- External CSS file for styling -->
     <link rel="stylesheet" href="assets/css/style.css" />
+
+    <!-- Favicon (browser tab icon) -->
     <link rel="icon" href="assets/images/icon.png" type="image/png" />
 </head>
 
 <body>
+
+<!-- Main application wrapper -->
 <main class="app-container">
+
+    <!-- Main To-Do App section (semantic grouping for accessibility) -->
     <section class="todo-app" aria-labelledby="app-title">
 
-        <!-- Header -->
+        <!-- ================= HEADER ================= -->
         <header class="app-header">
+            <!-- App title -->
             <h1 id="app-title">To-Do List App</h1>
+
+            <!-- App logo/icon -->
             <img src="assets/images/icon.png" alt="Application logo" class="app-icon" />
         </header>
 
-        <!-- Task Input -->
+        <!-- ================= TASK INPUT SECTION ================= -->
         <section class="task-input" aria-label="Add new task">
+
+            <!-- Task text input -->
             <input id="task-input" type="text" placeholder="Enter task..." required />
 
+            <!-- Due date input -->
             <input id="task-date" type="date" />
 
+            <!-- Task category selection -->
             <select id="task-category">
                 <option value="General">General</option>
                 <option value="Work">Work</option>
@@ -32,49 +51,74 @@
                 <option value="Personal">Personal</option>
             </select>
 
+            <!-- Task priority selection -->
             <select id="task-priority">
                 <option value="low">Low Priority</option>
                 <option value="medium">Medium Priority</option>
                 <option value="high">High Priority</option>
             </select>
 
+            <!-- Add task button -->
             <button id="add-task-btn" class="btn-primary">Add Task</button>
         </section>
 
-        <!-- Search -->
+        <!-- ================= SEARCH SECTION ================= -->
         <section class="search-bar">
+            <!-- Search input for filtering tasks -->
             <input id="search-input" type="text" placeholder="Search tasks..." />
         </section>
 
-        <!-- Progress -->
+        <!-- ================= PROGRESS TRACKER ================= -->
         <section class="progress-section">
+
+            <!-- Circular progress indicator -->
             <div class="progress-circle">
                 <svg width="120" height="120">
+
+                    <!-- Background circle (full track) -->
                     <circle cx="60" cy="60" r="50" class="progress-bg"></circle>
+
+                    <!-- Foreground circle (progress indicator) -->
                     <circle cx="60" cy="60" r="50" id="progress-bar"></circle>
                 </svg>
+
+                <!-- Percentage text in center -->
                 <span id="progress-text">0%</span>
             </div>
         </section>
 
-          <!-- Stats -->
-         <section class="stats">
-         <p>Total: <span id="total-tasks">0</span></p>
-        <p>Completed: <span id="completed-tasks">0</span></p>
-        <p>Pending: <span id="pending-tasks">0</span></p>
+        <!-- ================= TASK STATISTICS ================= -->
+        <section class="stats">
+
+            <!-- Total tasks count -->
+            <p>Total: <span id="total-tasks">0</span></p>
+
+            <!-- Completed tasks count -->
+            <p>Completed: <span id="completed-tasks">0</span></p>
+
+            <!-- Pending tasks count -->
+            <p>Pending: <span id="pending-tasks">0</span></p>
         </section>
 
-        <!-- Controls -->
+        <!-- ================= CONTROLS ================= -->
         <section class="controls">
-           <button id="dark-mode-toggle" class="btn-secondary">Toggle Dark Mode</button>
-           <button id="clear-completed" class="btn-secondary">Clear Completed</button>
-           <button id="weekly-summary" class="btn-secondary">Weekly Summary</button>
+
+            <!-- Toggle dark mode -->
+            <button id="dark-mode-toggle" class="btn-secondary">Toggle Dark Mode</button>
+
+            <!-- Remove all completed tasks -->
+            <button id="clear-completed" class="btn-secondary">Clear Completed</button>
+
+            <!-- Show weekly task summary -->
+            <button id="weekly-summary" class="btn-secondary">Weekly Summary</button>
         </section>
 
         <br>
 
-        <!-- Filters -->
+        <!-- ================= FILTER & SORT OPTIONS ================= -->
         <section class="filters">
+
+            <!-- Filter tasks by category -->
             <div class="filter-group">
                 <button data-filter="all">All</button>
                 <button data-filter="General">General</button>
@@ -83,25 +127,30 @@
                 <button data-filter="Personal">Personal</button>
             </div>
 
+            <!-- Sorting options -->
             <div class="sort-group">
                 <button data-sort="priority">Sort by Priority</button>
                 <button data-sort="date">Sort by Due Date</button>
             </div>
         </section>
 
-        <br> 
+        <br>
 
-        <!-- Task List -->
+        <!-- ================= TASK LIST DISPLAY ================= -->
         <section class="task-list">
+
+            <!-- Dynamic list where tasks will be rendered -->
             <ul id="task-list"></ul>
         </section>
 
     </section>
 </main>
 
-<!-- Toast -->
+<!-- Toast notification container (for alerts/messages) -->
 <div id="toast"></div>
 
+<!-- JavaScript logic for the app -->
 <script src="assets/js/script.js"></script>
+
 </body>
 </html>
