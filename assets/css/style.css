@@ -1,6 +1,5 @@
-
 /* =========================
-   GLOBAL STYLES
+   GLOBAL STYLES & VARIABLES
 ========================= */
 
 :root {
@@ -11,6 +10,7 @@
     --card-dark: #1f2937;
 }
 
+/* Reset default spacing and set base font */
 * {
     margin: 0;
     padding: 0;
@@ -18,18 +18,21 @@
     font-family: system-ui, sans-serif;
 }
 
+/* Base page styling */
 body {
     background: var(--bg-light);
     color: #333;
     transition: 0.3s;
 }
 
+/* Center app layout */
 .app-container {
     display: flex;
     justify-content: center;
     padding: 2rem;
 }
 
+/* Main app card */
 .todo-app {
     width: 100%;
     max-width: 650px;
@@ -38,7 +41,10 @@ body {
     border-radius: 12px;
 }
 
-/* HEADER */
+/* =========================
+   HEADER
+========================= */
+
 .app-header {
     display: flex;
     justify-content: space-between;
@@ -49,7 +55,10 @@ body {
     width: 80px;
 }
 
-/* INPUTS */
+/* =========================
+   INPUT SECTION
+========================= */
+
 .task-input {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -57,6 +66,7 @@ body {
     margin: 1.5rem 0;
 }
 
+/* Inputs + dropdown styling */
 .task-input input,
 .task-input select {
     padding: 0.6rem;
@@ -64,13 +74,17 @@ body {
     border: 1px solid #ccc;
 }
 
-/* BUTTONS */
+/* =========================
+   BUTTONS
+========================= */
+
 button {
     cursor: pointer;
     border: none;
     border-radius: 6px;
 }
 
+/* Primary action button */
 .btn-primary {
     grid-column: span 2;
     background: var(--primary);
@@ -78,12 +92,16 @@ button {
     padding: 0.7rem;
 }
 
+/* Secondary buttons */
 .btn-secondary {
     background: #e5e7eb;
     padding: 0.6rem;
 }
 
-/* Filters */
+/* =========================
+   FILTER CONTROLS
+========================= */
+
 .filters {
     display: flex;
     justify-content: space-between;
@@ -97,12 +115,16 @@ button {
     background: #e5e7eb;
 }
 
+/* Hover effect for filter buttons */
 .filters button:hover {
     background: var(--primary);
     color: white;
 }
 
-/* SEARCH (NEW) */
+/* =========================
+   SEARCH BAR
+========================= */
+
 .search-bar {
     margin-bottom: 1rem;
 }
@@ -114,7 +136,10 @@ button {
     border: 1px solid #ccc;
 }
 
-/* TASK LIST */
+/* =========================
+   TASK LIST
+========================= */
+
 .task-list li {
     background: #f1f5f9;
     padding: 0.7rem;
@@ -124,36 +149,43 @@ button {
     justify-content: space-between;
 }
 
-/* COMPLETED */
+/* Completed task style */
 .task-list li.completed {
     text-decoration: line-through;
     background: #d1fae5;
 }
 
+/* =========================
+   PRIORITY INDICATORS
+========================= */
 
-/* PRIORITY COLORS  */
 .task-list li.high { border-left: 5px solid #ef4444; }
 .task-list li.medium { border-left: 5px solid #f59e0b; }
 .task-list li.low { border-left: 5px solid #10b981; }
 
-/* OVERDUE  */
+/* Overdue task highlight */
 .task-list li.overdue {
     border-left: 5px solid red;
     background: #fee2e2;
 }
 
-/* PROGRESS */
+/* =========================
+   PROGRESS SECTION
+========================= */
+
 .progress-section {
     text-align: center;
     margin: 1.5rem 0;
 }
 
+/* Progress background circle */
 .progress-bg {
     stroke: #e5e7eb;
     fill: none;
     stroke-width: 10;
 }
 
+/* Progress bar animation */
 #progress-bar {
     stroke: var(--primary);
     fill: none;
@@ -163,7 +195,7 @@ button {
 }
 
 /* =========================
-   DARK MODE 
+   DARK MODE STYLES
 ========================= */
 
 .dark {
@@ -171,13 +203,13 @@ button {
     color: #f9fafb;
 }
 
-/* App container */
+/* Dark app container */
 .dark .todo-app {
     background: var(--card-dark);
     color: #f9fafb;
 }
 
-/* Inputs */
+/* Dark inputs */
 .dark .task-input input,
 .dark .task-input select,
 .dark #search-input {
@@ -186,23 +218,25 @@ button {
     border: 1px solid #374151;
 }
 
+/* Placeholder styling */
 .dark .task-input input::placeholder,
 .dark #search-input::placeholder {
     color: #9ca3af;
 }
 
-/* Buttons */
+/* Dark secondary button */
 .dark .btn-secondary {
     background: #374151;
     color: #f9fafb;
 }
 
+/* Dark primary button */
 .dark .btn-primary {
     background: #2563eb;
     color: white;
 }
 
-/* Filters */
+/* Dark filter buttons */
 .dark .filters button {
     background: #374151;
     color: #f9fafb;
@@ -214,57 +248,49 @@ button {
     color: white;
 }
 
-/* Task cards */
+/* Dark task cards */
 .dark .task-list li {
     background: #374151;
     color: #f9fafb;
     border: 1px solid #4b5563;
 }
 
-/* Completed task */
+/* Completed task (dark mode) */
 .dark .task-list li.completed {
     background: #065f46;
     color: #d1fae5;
 }
 
-/* Overdue task */
+/* Overdue task (dark mode) */
 .dark .task-list li.overdue {
     background: #7f1d1d;
     color: #fee2e2;
     border-left: 5px solid #ef4444;
 }
 
-/* Priority colors (dark-friendly contrast) */
-.dark .task-list li.high {
-    border-left: 5px solid #f87171;
-}
+/* Priority adjustments in dark mode */
+.dark .task-list li.high { border-left: 5px solid #f87171; }
+.dark .task-list li.medium { border-left: 5px solid #fbbf24; }
+.dark .task-list li.low { border-left: 5px solid #34d399; }
 
-.dark .task-list li.medium {
-    border-left: 5px solid #fbbf24;
-}
-
-.dark .task-list li.low {
-    border-left: 5px solid #34d399;
-}
-
-/* Progress circle */
+/* Progress bar background (dark mode) */
 .dark .progress-bg {
     stroke: #4b5563;
 }
 
-/* Toast */
+/* Toast notification (dark mode) */
 .dark #toast {
     background: #1f2937;
     color: #f9fafb;
     border: 1px solid #374151;
 }
 
-/* Empty state */
+/* Empty state (dark mode) */
 .dark .empty-state {
     color: #9ca3af;
 }
 
-/* Scrollbar (optional but nice) */
+/* Scrollbar styling (dark mode) */
 .dark ::-webkit-scrollbar {
     width: 8px;
 }
@@ -278,8 +304,10 @@ button {
     background: #111827;
 }
 
+/* =========================
+   TOAST NOTIFICATION
+========================= */
 
-/* TOAST */
 #toast {
     position: fixed;
     bottom: 20px;
@@ -292,12 +320,19 @@ button {
     transition: 0.3s;
 }
 
+/* Show toast */
 #toast.show {
     opacity: 1;
 }
 
+/* Toast types */
+#toast.success { background: #16a34a; }
+#toast.error { background: #dc2626; }
+#toast.info { background: #2563eb; }
+#toast.warning { background: #f59e0b; }
+
 /* =========================
-   EMPTY STATE 
+   EMPTY STATE
 ========================= */
 
 .empty-state {
@@ -315,74 +350,41 @@ button {
     transition: all 0.3s ease;
 }
 
-/* Hover subtle effect (desktop polish) */
+/* Hover effect */
 .empty-state:hover {
     transform: scale(1.01);
 }
 
-/* =========================
-   DARK MODE EMPTY STATE
-========================= */
-
+/* Dark empty state */
 .dark .empty-state {
     background: #1f2937;
     color: #9ca3af;
     border: 1px dashed #374151;
 }
 
-/* Slight hover adjustment for dark */
 .dark .empty-state:hover {
     background: #243042;
 }
+
 /* =========================
-   FILTER BUTTON BASE STYLE
+   FILTER BUTTON STYLES
 ========================= */
 
-button[data-filter="all"] {
-    background: #e5e7eb;
-    color: #111;
-}
+/* Category filters */
+button[data-filter="all"] { background: #e5e7eb; color: #111; }
+button[data-filter="General"] { background: #3b82f6; color: white; }
+button[data-filter="Work"] { background: #8b5cf6; color: white; }
+button[data-filter="Study"] { background: #f59e0b; color: white; }
+button[data-filter="Personal"] { background: #10b981; color: white; }
 
-button[data-filter="all"]:hover {
-    background: #cbd5e1;
-}
+/* Hover states */
+button[data-filter="all"]:hover { background: #cbd5e1; }
+button[data-filter="General"]:hover { background: #2563eb; }
+button[data-filter="Work"]:hover { background: #7c3aed; }
+button[data-filter="Study"]:hover { background: #d97706; }
+button[data-filter="Personal"]:hover { background: #059669; }
 
-button[data-filter="General"] {
-    background: #3b82f6;
-    color: white;
-}
-
-button[data-filter="General"]:hover {
-    background: #2563eb;
-}
-
-button[data-filter="Work"] {
-    background: #8b5cf6;
-    color: white;
-}
-
-button[data-filter="Work"]:hover {
-    background: #7c3aed;
-}
-
-button[data-filter="Study"] {
-    background: #f59e0b;
-    color: white;
-}
-
-button[data-filter="Study"]:hover {
-    background: #d97706;
-}
-
-button[data-filter="Personal"] {
-    background: #10b981;
-    color: white;
-}
-
-button[data-filter="Personal"]:hover {
-    background: #059669;
-}
-
+/* Sort buttons */
 button[data-sort="priority"],
 button[data-sort="date"] {
     background: #111827;
@@ -394,61 +396,20 @@ button[data-sort="date"]:hover {
     background: #374151;
 }
 
+/* Click effect */
 .filter-group button:active,
 .sort-group button:active {
     transform: scale(0.96);
 }
 
-/* =========================
-   FILTER BUTTONS - DARK MODE OVERRIDES
-========================= */
+/* Dark mode filter overrides */
+.dark button[data-filter="all"] { background: #374151; color: #f9fafb; }
+.dark button[data-filter="General"] { background: #2563eb; }
+.dark button[data-filter="Work"] { background: #7c3aed; }
+.dark button[data-filter="Study"] { background: #d97706; }
+.dark button[data-filter="Personal"] { background: #059669; }
 
-.dark button[data-filter="all"] {
-    background: #374151;
-    color: #f9fafb;
-}
-
-.dark button[data-filter="all"]:hover {
-    background: #4b5563;
-}
-
-.dark button[data-filter="General"] {
-    background: #2563eb;
-    color: white;
-}
-
-.dark button[data-filter="General"]:hover {
-    background: #1d4ed8;
-}
-
-.dark button[data-filter="Work"] {
-    background: #7c3aed;
-    color: white;
-}
-
-.dark button[data-filter="Work"]:hover {
-    background: #6d28d9;
-}
-
-.dark button[data-filter="Study"] {
-    background: #d97706;
-    color: white;
-}
-
-.dark button[data-filter="Study"]:hover {
-    background: #b45309;
-}
-
-.dark button[data-filter="Personal"] {
-    background: #059669;
-    color: white;
-}
-
-.dark button[data-filter="Personal"]:hover {
-    background: #047857;
-}
-
-/* SORT BUTTONS (DARK MODE) */
+/* Dark sort buttons */
 .dark button[data-sort="priority"],
 .dark button[data-sort="date"] {
     background: #1f2937;
@@ -456,18 +417,10 @@ button[data-sort="date"]:hover {
     border: 1px solid #374151;
 }
 
-.dark button[data-sort="priority"]:hover,
-.dark button[data-sort="date"]:hover {
-    background: #374151;
-}
+/* =========================
+   STATS & SUBTASKS
+========================= */
 
-/* ACTIVE CLICK EFFECT  */
-.dark .filter-group button:active,
-.dark .sort-group button:active {
-    transform: scale(0.96);
-}
-
-/* STATS */
 .stats {
     display: flex;
     justify-content: space-between;
@@ -475,7 +428,7 @@ button[data-sort="date"]:hover {
     font-size: 0.9rem;
 }
 
-/* SUBTASKS */
+/* Subtasks */
 .subtasks {
     margin-top: 5px;
     padding-left: 15px;
@@ -486,12 +439,85 @@ button[data-sort="date"]:hover {
     list-style: none;
 }
 
-/* TOAST TYPES */
-#toast.success { background: #16a34a; }
-#toast.error { background: #dc2626; }
-#toast.info { background: #2563eb; }
-#toast.warning { background: #f59e0b; }
-
+/* Pinned task */
 .task-list li.pinned {
     border: 2px solid gold;
+}
+
+/* =========================
+   TASK ANIMATIONS
+========================= */
+
+/* Entry animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Exit animation */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+        height: auto;
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-10px);
+        height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Apply entry animation */
+.task-animate {
+    animation: fadeInUp 0.3s ease forwards;
+}
+
+/* Hover animation for tasks */
+.task-list li {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-list li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+/* Button click feedback */
+button:active {
+    transform: scale(0.95);
+}
+
+/* Toast animation improvement */
+#toast {
+    transform: translateY(20px);
+    transition: 0.3s ease;
+}
+
+#toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Checkbox animation */
+.task-list input[type="checkbox"] {
+    transform: scale(1);
+    transition: transform 0.15s ease;
+}
+
+.task-list input[type="checkbox"]:checked {
+    transform: scale(1.15);
+}
+
+/* Smooth progress animation */
+#progress-bar {
+    transition: stroke-dashoffset 0.6s ease;
 }
