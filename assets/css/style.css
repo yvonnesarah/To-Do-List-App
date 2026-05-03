@@ -14,15 +14,15 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: system-ui, sans-serif;
+    box-sizing: border-box; /* ensures padding doesn't affect width */
+    font-family: system-ui, sans-serif; /* modern system font stack */
 }
 
 /* Base page styling */
 body {
     background: var(--bg-light);
     color: #333;
-    transition: 0.3s;
+    transition: 0.3s; /* smooth theme switching */
 }
 
 /* Center app layout */
@@ -35,7 +35,7 @@ body {
 /* Main app card */
 .todo-app {
     width: 100%;
-    max-width: 650px;
+    max-width: 800px;
     background: var(--card-light);
     padding: 2rem;
     border-radius: 12px;
@@ -84,7 +84,7 @@ button {
     border-radius: 6px;
 }
 
-/* Primary action button */
+/* Primary action button (add task) */
 .btn-primary {
     grid-column: span 2;
     background: var(--primary);
@@ -92,7 +92,7 @@ button {
     padding: 0.7rem;
 }
 
-/* Secondary buttons */
+/* Secondary buttons (edit/delete etc.) */
 .btn-secondary {
     background: #e5e7eb;
     padding: 0.6rem;
@@ -108,6 +108,7 @@ button {
     margin-bottom: 1rem;
 }
 
+/* Individual filter buttons */
 .filters button {
     font-size: 0.8rem;
     padding: 0.4rem 0.6rem;
@@ -149,7 +150,7 @@ button {
     justify-content: space-between;
 }
 
-/* Completed task style */
+/* Completed task style (visual strike-through) */
 .task-list li.completed {
     text-decoration: line-through;
     background: #d1fae5;
@@ -159,11 +160,12 @@ button {
    PRIORITY INDICATORS
 ========================= */
 
+/* Left border indicates priority level */
 .task-list li.high { border-left: 5px solid #ef4444; }
 .task-list li.medium { border-left: 5px solid #f59e0b; }
 .task-list li.low { border-left: 5px solid #10b981; }
 
-/* Overdue task highlight */
+/* Overdue task highlight (urgent styling) */
 .task-list li.overdue {
     border-left: 5px solid red;
     background: #fee2e2;
@@ -178,14 +180,14 @@ button {
     margin: 1.5rem 0;
 }
 
-/* Progress background circle */
+/* SVG circle background for progress ring */
 .progress-bg {
     stroke: #e5e7eb;
     fill: none;
     stroke-width: 10;
 }
 
-/* Progress bar animation */
+/* Animated progress stroke */
 #progress-bar {
     stroke: var(--primary);
     fill: none;
@@ -198,18 +200,19 @@ button {
    DARK MODE STYLES
 ========================= */
 
+/* Root dark mode toggle */
 .dark {
     background: var(--bg-dark);
     color: #f9fafb;
 }
 
-/* Dark app container */
+/* Card in dark mode */
 .dark .todo-app {
     background: var(--card-dark);
     color: #f9fafb;
 }
 
-/* Dark inputs */
+/* Inputs in dark mode */
 .dark .task-input input,
 .dark .task-input select,
 .dark #search-input {
@@ -218,79 +221,80 @@ button {
     border: 1px solid #374151;
 }
 
-/* Placeholder styling */
+/* Placeholder text visibility in dark mode */
 .dark .task-input input::placeholder,
 .dark #search-input::placeholder {
     color: #9ca3af;
 }
 
-/* Dark secondary button */
+/* Secondary button dark theme */
 .dark .btn-secondary {
     background: #374151;
     color: #f9fafb;
 }
 
-/* Dark primary button */
+/* Primary button remains consistent */
 .dark .btn-primary {
     background: #2563eb;
     color: white;
 }
 
-/* Dark filter buttons */
+/* Filter buttons in dark mode */
 .dark .filters button {
     background: #374151;
     color: #f9fafb;
     border: 1px solid #4b5563;
 }
 
+/* Hover behavior still applies */
 .dark .filters button:hover {
     background: var(--primary);
     color: white;
 }
 
-/* Dark task cards */
+/* Task card dark styling */
 .dark .task-list li {
     background: #374151;
     color: #f9fafb;
     border: 1px solid #4b5563;
 }
 
-/* Completed task (dark mode) */
+/* Completed task dark mode styling */
 .dark .task-list li.completed {
     background: #065f46;
     color: #d1fae5;
 }
 
-/* Overdue task (dark mode) */
+/* Overdue task dark mode */
 .dark .task-list li.overdue {
     background: #7f1d1d;
     color: #fee2e2;
     border-left: 5px solid #ef4444;
 }
 
-/* Priority adjustments in dark mode */
+/* Priority colors adjusted for dark theme */
 .dark .task-list li.high { border-left: 5px solid #f87171; }
 .dark .task-list li.medium { border-left: 5px solid #fbbf24; }
 .dark .task-list li.low { border-left: 5px solid #34d399; }
 
-/* Progress bar background (dark mode) */
+/* Progress background in dark mode */
 .dark .progress-bg {
     stroke: #4b5563;
 }
 
-/* Toast notification (dark mode) */
+/* Toast notification in dark mode */
 .dark #toast {
     background: #1f2937;
     color: #f9fafb;
     border: 1px solid #374151;
 }
 
-/* Empty state (dark mode) */
+/* Empty state text contrast */
 .dark .empty-state {
     color: #9ca3af;
 }
 
-/* Scrollbar styling (dark mode) */
+/* Custom scrollbar (dark mode only) */
 .dark ::-webkit-scrollbar {
     width: 8px;
 }
@@ -304,10 +308,16 @@ button {
     background: #111827;
 }
 
+/* Subtask heading contrast */
+.dark .subtasks-title {
+    color: white;
+}
+
 /* =========================
    TOAST NOTIFICATION
 ========================= */
 
+/* Toast base styling (notification popup) */
 #toast {
     position: fixed;
     bottom: 20px;
@@ -320,12 +330,23 @@ button {
     transition: 0.3s;
 }
 
-/* Show toast */
+/* Toast action button */
+#toast button {
+    margin-left: 10px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: white;
+    color: #111;
+    cursor: pointer;
+    font-size: 0.75rem;
+}
+
+/* Toast visible state */
 #toast.show {
     opacity: 1;
 }
 
-/* Toast types */
+/* Toast type variants */
 #toast.success { background: #16a34a; }
 #toast.error { background: #dc2626; }
 #toast.info { background: #2563eb; }
@@ -335,6 +356,7 @@ button {
    EMPTY STATE
 ========================= */
 
+/* Shown when no tasks exist */
 .empty-state {
     text-align: center;
     padding: 1.5rem;
@@ -350,59 +372,49 @@ button {
     transition: all 0.3s ease;
 }
 
-/* Hover effect */
+/* Hover effect adds subtle emphasis */
 .empty-state:hover {
     transform: scale(1.01);
-}
-
-/* Dark empty state */
-.dark .empty-state {
-    background: #1f2937;
-    color: #9ca3af;
-    border: 1px dashed #374151;
-}
-
-.dark .empty-state:hover {
-    background: #243042;
 }
 
 /* =========================
    FILTER BUTTON STYLES
 ========================= */
 
-/* Category filters */
+/* Category filter colors */
 button[data-filter="all"] { background: #e5e7eb; color: #111; }
 button[data-filter="General"] { background: #3b82f6; color: white; }
 button[data-filter="Work"] { background: #8b5cf6; color: white; }
 button[data-filter="Study"] { background: #f59e0b; color: white; }
 button[data-filter="Personal"] { background: #10b981; color: white; }
 
-/* Hover states */
+/* Hover states for filters */
 button[data-filter="all"]:hover { background: #cbd5e1; }
 button[data-filter="General"]:hover { background: #2563eb; }
 button[data-filter="Work"]:hover { background: #7c3aed; }
 button[data-filter="Study"]:hover { background: #d97706; }
 button[data-filter="Personal"]:hover { background: #059669; }
 
-/* Sort buttons */
+/* Sorting buttons */
 button[data-sort="priority"],
 button[data-sort="date"] {
     background: #111827;
     color: white;
 }
 
+/* Sort hover effect */
 button[data-sort="priority"]:hover,
 button[data-sort="date"]:hover {
     background: #374151;
 }
 
-/* Click effect */
+/* Click feedback animation */
 .filter-group button:active,
 .sort-group button:active {
     transform: scale(0.96);
 }
 
-/* Dark mode filter overrides */
+/* Dark mode overrides for filters */
 .dark button[data-filter="all"] { background: #374151; color: #f9fafb; }
 .dark button[data-filter="General"] { background: #2563eb; }
 .dark button[data-filter="Work"] { background: #7c3aed; }
@@ -421,6 +433,7 @@ button[data-sort="date"]:hover {
    STATS & SUBTASKS
 ========================= */
 
+/* Stats bar layout */
 .stats {
     display: flex;
     justify-content: space-between;
@@ -428,18 +441,49 @@ button[data-sort="date"]:hover {
     font-size: 0.9rem;
 }
 
-/* Subtasks */
+/* Subtask container */
 .subtasks {
     margin-top: 5px;
-    padding-left: 15px;
-    font-size: 0.85rem;
+    padding-left: 0;
+    font-size: 10pt;
 }
 
+/* Remove bullets */
 .subtasks li {
     list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
 }
 
-/* Pinned task */
+/* Subtask text expands */
+.subtasks span {
+    flex: 1;
+}
+
+/* Subtask action buttons */
+.subtasks li div {
+    display: flex;
+    gap: 4px;
+}
+
+/* Small buttons inside subtasks */
+.subtasks button {
+    font-size: 0.75rem;
+    padding: 2px 6px;
+}
+
+/* Subtask heading */
+.subtasks-title {
+    font-size: 0.8rem;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    color: black;
+    transition: color 0.3s ease;
+}
+
+/* Pinned task highlight */
 .task-list li.pinned {
     border: 2px solid gold;
 }
@@ -448,7 +492,7 @@ button[data-sort="date"]:hover {
    TASK ANIMATIONS
 ========================= */
 
-/* Entry animation */
+/* Fade in animation for new tasks */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -460,7 +504,7 @@ button[data-sort="date"]:hover {
     }
 }
 
-/* Exit animation */
+/* Fade out animation for removal */
 @keyframes fadeOut {
     from {
         opacity: 1;
@@ -481,11 +525,12 @@ button[data-sort="date"]:hover {
     animation: fadeInUp 0.3s ease forwards;
 }
 
-/* Hover animation for tasks */
+/* Hover lift effect for tasks */
 .task-list li {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Task hover interaction */
 .task-list li:hover {
     transform: translateY(-3px);
     box-shadow: 0 6px 14px rgba(0,0,0,0.08);
@@ -496,28 +541,30 @@ button:active {
     transform: scale(0.95);
 }
 
-/* Toast animation improvement */
+/* Toast slide animation */
 #toast {
     transform: translateY(20px);
     transition: 0.3s ease;
 }
 
+/* Toast visible state */
 #toast.show {
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Checkbox animation */
+/* Checkbox animation for interaction feedback */
 .task-list input[type="checkbox"] {
     transform: scale(1);
     transition: transform 0.15s ease;
 }
 
+/* Checked state emphasis */
 .task-list input[type="checkbox"]:checked {
     transform: scale(1.15);
 }
 
-/* Smooth progress animation */
+/* Smooth progress bar animation */
 #progress-bar {
     transition: stroke-dashoffset 0.6s ease;
 }
