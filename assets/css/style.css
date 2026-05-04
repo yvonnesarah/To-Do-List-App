@@ -35,7 +35,7 @@ body {
 /* Main app card */
 .todo-app {
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     background: var(--card-light);
     padding: 2rem;
     border-radius: 12px;
