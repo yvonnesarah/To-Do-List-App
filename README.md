@@ -74,18 +74,24 @@ Application can be viewed here:
 Before Design
 
 To-Do List App
+
 ![Screenshot](assets/images/before/to-do-list-app.png "To-Do List App")
 
 To-Do List App with AI Example
+
 ![Screenshot](assets/images/before/to-do-list-app-example.png "To-Do List App with AI Example")
 
 To-Do List App with complete task Example
+
 ![Screenshot](assets/images/before/to-do-list-app-complete-task.png "To-Do List App with complete task Example")
 
+
 To-Do List App with plan my day Example
+
 ![Screenshot](assets/images/before/to-do-list-app-plan-my-day.png "To-Do List App with plan my day Example")
 
 To-Do List App with clear task Example
+
 ![Screenshot](assets/images/before/to-do-list-app-clear-task.png "To-Do List App with clear task Example")
 
 After Design
@@ -97,6 +103,7 @@ To-Do List App - Dark Theme
 ![Screenshot](assets/images/after/to-do-list-app-dark.png "To-Do List App - Dark Theme")
 
 To-Do List App with Example
+
 ![Screenshot](assets/images/after/to-do-list-app-example.png "To-Do List App with Example")
 
 To-Do List App with complete task Example
@@ -106,6 +113,7 @@ To-Do List App with pinned task Example
 ![Screenshot](assets/images/after/to-do-list-app-pinned-task.png "To-Do List App with pinned task Example")
 
 To-Do List App Subtask Example
+
 ![Screenshot](assets/images/after/to-do-list-app-subtask-example.png "To-Do List App with subtask Example")
 
 ## 🗺️ Roadmap (Planned Features)
